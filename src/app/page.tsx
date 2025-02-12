@@ -14,8 +14,6 @@ export default async function Home({ searchParams }: PageProps) {
 
   const properties = await getAllProperties();
 
-  console.log("properties = ", properties);
-
   return (
     <div className="drawer lg:drawer-open">
       <input id="property-drawer" type="checkbox" className="drawer-toggle" aria-label="Toggle property drawer" />

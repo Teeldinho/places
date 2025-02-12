@@ -12,8 +12,6 @@ export async function getAllProperties() {
 
   const properties = data.map(mapPropertyDtoToRto);
 
-  console.log("properties = ", properties);
-
   return properties;
 }
 
@@ -27,8 +25,6 @@ export async function getPropertyById(id: string) {
   const property: Property = data[0];
 
   const rto = mapPropertyDtoToRto(property);
-
-  console.log("rto = ", rto);
 
   return rto;
 }

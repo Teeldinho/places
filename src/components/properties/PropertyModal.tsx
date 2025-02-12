@@ -14,27 +14,29 @@ export default function PropertyModal({ property, trigger }: PropertyModalProps)
   const isEditMode = Boolean(property);
 
   return (
-    <>
-      <div onClick={() => setIsOpen(true)} className="contents">
+    <div className="drawer drawer-end">
+      <input id="property-drawer" type="checkbox" className="drawer-toggle" checked={isOpen} onChange={(e) => setIsOpen(e.target.checked)} />
+
+      {/* Trigger wraps the passed in trigger component */}
+      <div className="drawer-content" onClick={() => setIsOpen(true)}>
         {trigger}
       </div>
 
-      <dialog open={isOpen} className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box relative">
-          <h3 className="font-bold text-lg mb-4">{isEditMode ? "Edit Property" : "Add New Property"}</h3>
-          <PropertyForm
-            property={property}
-            onSuccess={() => {
-              setIsOpen(false);
-            }}
-          />
-          <div className="modal-action absolute top-2 right-2">
-            <button type="button" className="btn btn-circle btn-sm btn-dash" onClick={() => setIsOpen(false)}>
-              X
+      {/* Sidebar content */}
+      <div className="drawer-side">
+        <label htmlFor="property-drawer" aria-label="close sidebar" className="drawer-overlay" onClick={() => setIsOpen(false)}></label>
+
+        <div className="bg-base-100 min-h-full w-[40rem] p-6">
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-2xl font-bold">{isEditMode ? "Edit Property" : "Add New Property"}</h3>
+            <button className="btn btn-circle btn-sm" onClick={() => setIsOpen(false)}>
+              ✕
             </button>
           </div>
+
+          <PropertyForm property={property} onSuccess={() => setIsOpen(false)} />
         </div>
-      </dialog>
-    </>
+      </div>
+    </div>
   );
 }
