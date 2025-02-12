@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { addPropertyAction, editPropertyAction } from "@/lib/actions/propertyActions";
+import { addPropertyAction, editPropertyAction } from "@/lib/actions/property-mutations";
 import { AddPropertySchema, EditPropertySchema, type Property } from "@/lib/schema";
 import { DEFAULT_LAT, DEFAULT_LNG, isWithinGeofence } from "@/lib/geofence";
 

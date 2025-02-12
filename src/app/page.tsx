@@ -3,6 +3,8 @@ import { dummyProperties } from "@/lib/data/properties";
 import { mapParamsCache } from "@/lib/store/cache";
 import type { SearchParams } from "nuqs/server";
 import MapWrapper from "@/components/map/MapWrapper";
+import { createClient } from "@/utils/supabase/server";
+
 type PageProps = {
   searchParams: Promise<SearchParams>;
 };
@@ -10,6 +12,12 @@ type PageProps = {
 export default async function Home({ searchParams }: PageProps) {
   // Parse the search params
   await mapParamsCache.parse(searchParams);
+
+  const supabase = createClient();
+
+  const { data } = await (await supabase).from("places").select();
+
+  console.log("properties = ", data);
 
   return (
     <div className="drawer lg:drawer-open">
