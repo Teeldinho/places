@@ -1,6 +1,7 @@
 import { createSearchParamsCache, parseAsJson } from "nuqs/server";
-import { MapParamsSchema } from "@/lib/schema";
+import { MapParamsSchema, SortParamsSchema } from "@/lib/schema";
 
 export const mapParamsCache = createSearchParamsCache({
   map: parseAsJson(MapParamsSchema.parse),
+  sort: parseAsJson(SortParamsSchema.parse),
 });

@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import { type Property } from "@/lib/schema";
 
 /**
@@ -8,19 +8,25 @@ import { type Property } from "@/lib/schema";
  * Provides utilities for working with property data
  *
  * @param properties - Array of Property objects to be managed
+ * @param sort - Optional sorting parameters
  *
  * @returns An object containing property management utilities
  */
-export function useProperties(properties: Property[]) {
-  const mappedProperties = useMemo(() => properties.filter((p) => p.isMapped), [properties]);
+export function useProperties(properties: Property[], sort?: { field?: string; direction: string }) {
+  return useMemo(() => {
+    const sorted = [...properties].sort((a, b) => {
+      if (!sort?.field) return 0;
 
-  const unmappedProperties = useMemo(() => properties.filter((p) => !p.isMapped), [properties]);
+      const valueA = a[sort.field as keyof Property]?.toString().toLowerCase() || "";
+      const valueB = b[sort.field as keyof Property]?.toString().toLowerCase() || "";
 
-  const getPropertyById = useCallback((id: string) => properties.find((p) => p.id === id), [properties]);
+      return sort.direction === "asc" ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+    });
 
-  return {
-    mappedProperties,
-    unmappedProperties,
-    getPropertyById,
-  };
+    return {
+      mappedProperties: sorted.filter((p) => p.isMapped),
+      unmappedProperties: sorted.filter((p) => !p.isMapped),
+      getPropertyById: (id: string) => sorted.find((p) => p.id === id),
+    };
+  }, [properties, sort]);
 }

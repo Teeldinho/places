@@ -11,6 +11,13 @@ export const MapParamsSchema = z.object({
 
 export type MapParams = z.infer<typeof MapParamsSchema>;
 
+export const SortParamsSchema = z.object({
+  field: z.enum(["property", "community", "subcommunity"]).optional(),
+  direction: z.enum(["asc", "desc"]).default("asc"),
+});
+
+export type SortParams = z.infer<typeof SortParamsSchema>;
+
 export const PropertySchema = z.object({
   id: z.string().uuid(),
   city: z.enum(["Dubai"]).optional(),
