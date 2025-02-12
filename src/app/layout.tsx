@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Places",
-  description: "Places by Teeldinho",
+  title: "Places by Teeldinho",
+  description: "Places by Teeldinho - A map of places in Dubai",
 };
 
 export default function RootLayout({

@@ -24,7 +24,7 @@ export default function PropertyCard({ property, isSelected, onClick, onClose }:
       )}
 
       <div
-        className={`card bg-base-100 shadow-sm hover:shadow-md transition-all ${onClick ? "cursor-pointer" : ""} ${
+        className={`card bg-base-100 shadow-sm hover:shadow-md transition-all flex flex-col gap-2 ${onClick ? "cursor-pointer" : ""} ${
           isSelected ? "ring-4 ring-primary" : ""
         }`}
         onClick={onClick}
@@ -52,7 +52,7 @@ export default function PropertyCard({ property, isSelected, onClick, onClose }:
           />
         </figure>
 
-        <div className="card-body p-4 flex flex-col gap-1">
+        <div className="card-body p-4 flex flex-col gap-1.5">
           <PropertyName property={property} />
           <PropertyDetails property={property} />
         </div>

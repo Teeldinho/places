@@ -6,14 +6,15 @@ interface PropertyDetailsProps {
 
 export default function PropertyDetails({ property }: PropertyDetailsProps) {
   return (
-    <div className="text-sm space-y-2">
-      <p className="flex items-center gap-1">
-        <span className="opacity-60">Community:</span>
-        <span className="font-medium">{property.community}</span>
+    <div className="text-sm flex flex-col gap-2">
+      <p className="flex flex-col gap-0.5">
+        <span className="opacity-50 text-xs tracking-wider">Community</span>
+        <span className="font-medium opacity-80 text-base">{property.community}</span>
       </p>
-      <p className="flex items-center gap-1">
-        <span className="opacity-60">Subcommunity:</span>
-        <span className="font-medium">{property.subcommunity}</span>
+
+      <p className="flex flex-col gap-0.5">
+        <span className="opacity-50 text-xs tracking-wider">Sub-community</span>
+        <span className="font-medium opacity-80 text-base">{property.subcommunity}</span>
       </p>
     </div>
   );
