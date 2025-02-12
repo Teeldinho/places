@@ -1,7 +1,7 @@
 "use client";
 import { useQueryState } from "nuqs";
 import { parseAsJson } from "nuqs/server";
-import { MapParamsSchema } from "@/lib/store/schema";
+import { MapParamsSchema } from "@/lib/schema";
 
 export const useMapParams = () => {
   const [params, setParams] = useQueryState("map", parseAsJson(MapParamsSchema.parse).withDefault(MapParamsSchema.parse({})));
