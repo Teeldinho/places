@@ -53,8 +53,8 @@ export default function MapView({ properties }: { properties: PropertyRto[] }) {
           }
         }}
       >
-        <FullscreenControl position="top-left" />
-        <NavigationControl position="top-left" />
+        <FullscreenControl position="bottom-left" />
+        <NavigationControl position="bottom-left" />
         <ScaleControl />
 
         {mappedProperties.map((property) => (
@@ -89,7 +89,7 @@ export default function MapView({ properties }: { properties: PropertyRto[] }) {
           <ResetButton />
         </div>
 
-        <div className="absolute top-6 left-16 z-10">
+        <div className="absolute top-6 left-16 lg:left-4 z-10">
           <AddPropertyButton />
         </div>
       </Map>

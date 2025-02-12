@@ -26,8 +26,8 @@ export default function PropertyList({ properties }: { properties: PropertyRto[]
     const updateColumns = () => {
       const width = window.innerWidth;
       if (width >= 1536) setColumnCount(3); // 2xl screens
-      else if (width >= 1024) setColumnCount(2); // lg screens
-      else setColumnCount(1); // mobile/tablet
+      else if (width >= 768) setColumnCount(2); // md screens and above
+      else setColumnCount(1); // mobile
     };
 
     updateColumns();
@@ -55,7 +55,7 @@ export default function PropertyList({ properties }: { properties: PropertyRto[]
   }, [selectedId, visibleProperties, columnCount, virtualizer]);
 
   return (
-    <div className="w-[40vw] h-screen p-4 border-r border-base-200 flex flex-col gap-6">
+    <div className="w-[90vw] lg:w-[40vw] h-screen p-4 border-r border-base-200 flex flex-col gap-6 bg-base-300">
       <div className="flex flex-col gap-4">
         <div className="flex justify-between items-center mb-4 w-full">
           <div className="tabs tabs-box tabs-lg w-full">
