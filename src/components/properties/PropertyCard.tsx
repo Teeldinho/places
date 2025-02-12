@@ -30,13 +30,7 @@ export default function PropertyCard({ property, isSelected, onClick, onClose }:
         onClick={onClick}
       >
         <figure className="h-40 bg-base-500 relative">
-          <Image
-            src={property.image}
-            alt={property.property || property.subcommunity || "Property Image"}
-            width={600}
-            height={400}
-            className="bg-base-200 rounded-lg"
-          />
+          <Image src={property.image} alt={property.property || property.subcommunity || "Property Image"} fill className="bg-base-200 rounded-lg" />
 
           <div className="absolute top-2 left-2">
             <MappingBadge isMapped={property.isMapped} />
@@ -45,7 +39,7 @@ export default function PropertyCard({ property, isSelected, onClick, onClose }:
           <PropertyModal
             property={property}
             trigger={
-              <button type="button" className="absolute bottom-2 right-1 btn btn-circle btn-sm btn-primary opacity-70 z-20" aria-label="Edit">
+              <button type="button" className="absolute -bottom-[72px] right-2 btn btn-circle btn-sm btn-primary opacity-70 z-20" aria-label="Edit">
                 ✎
               </button>
             }
