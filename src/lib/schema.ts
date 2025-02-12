@@ -2,7 +2,8 @@ import { z } from "zod";
 
 export const DEFAULT_LAT = 25.2048; // Dubai
 export const DEFAULT_LNG = 55.2708; // Dubai
-export const DEFAULT_ZOOM = 14;
+export const DEFAULT_ZOOM = 14; // 14 is the default zoom level for the map
+export const PROPERTY_ZOOM = 18; // Zoom level when focusing on a property
 
 export const MapParamsSchema = z.object({
   lat: z.number().min(-90).max(90).default(DEFAULT_LAT),

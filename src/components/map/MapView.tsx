@@ -1,17 +1,41 @@
 "use client";
 
-import { Map, Marker, Popup, NavigationControl } from "@vis.gl/react-maplibre";
+import { useEffect, useState } from "react";
+import { FullscreenControl, Map, Marker, NavigationControl, ScaleControl, Popup } from "@vis.gl/react-maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { type Property } from "@/lib/schema";
 import { useMapParams } from "@/lib/store/client";
-import Pin from "./Pin";
+import Pin from "@/components/map/Pin";
+import PropertyCard from "@/components/properties/PropertyCard";
+import { useProperties } from "@/lib/hooks/useProperties";
+import { useMapNavigation } from "@/lib/hooks/useMapNavigation";
+import ResetButton from "@/components/map/ResetButton";
 
 export default function MapView({ properties }: { properties: Property[] }) {
   const { lat, lng, zoom, selectedId, selectProperty, clearSelection } = useMapParams();
+  const [map, setMap] = useState<maplibregl.Map | null>(null);
+
+  const { getPropertyById } = useProperties(properties);
+  const selectedProperty = getPropertyById(selectedId || "");
+
+  const { focusProperty } = useMapNavigation();
+
+  useEffect(() => {
+    if (selectedProperty && map) {
+      focusProperty(selectedProperty);
+    }
+  }, [focusProperty, selectedProperty, map]);
 
   return (
     <div className="h-screen w-full relative">
       <Map
+        onLoad={(e) => {
+          setMap(e.target);
+          e.target.flyTo({
+            center: [lng, lat],
+            zoom,
+          });
+        }}
         initialViewState={{
           latitude: lat,
           longitude: lng,
@@ -20,32 +44,41 @@ export default function MapView({ properties }: { properties: Property[] }) {
         style={{ width: "100%", height: "100%" }}
         mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
       >
+        <FullscreenControl position="top-left" />
         <NavigationControl position="top-left" />
+        <ScaleControl />
 
         {properties.map((property) => (
           <Marker
             key={property.id}
             longitude={property.coordinates.lng}
             latitude={property.coordinates.lat}
-            onClick={() => (selectedId === property.id ? clearSelection() : selectProperty(property.id))}
+            onClick={(e) => {
+              e.originalEvent?.stopPropagation();
+              selectProperty(property.id);
+              focusProperty(property);
+            }}
           >
-            <Pin property={property} isSelected={selectedId === property.id} />
+            <Pin isSelected={selectedId === property.id} />
           </Marker>
         ))}
 
-        {selectedId && (
+        {selectedProperty && (
           <Popup
-            longitude={properties.find((p) => p.id === selectedId)?.coordinates.lng || 0}
-            latitude={properties.find((p) => p.id === selectedId)?.coordinates.lat || 0}
             anchor="bottom"
+            offset={10}
+            longitude={selectedProperty.coordinates.lng}
+            latitude={selectedProperty.coordinates.lat}
             onClose={clearSelection}
+            closeOnClick={false}
           >
-            <div className="prose">
-              <h3 className="text-sm font-bold">{properties.find((p) => p.id === selectedId)?.property}</h3>
-              <p className="text-xs">{properties.find((p) => p.id === selectedId)?.subcommunity}</p>
-            </div>
+            <PropertyCard property={selectedProperty} isSelected={true} onClose={clearSelection} />
           </Popup>
         )}
+
+        <div className="absolute top-2 right-2 z-10">
+          <ResetButton />
+        </div>
       </Map>
     </div>
   );

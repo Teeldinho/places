@@ -1,25 +1,25 @@
-"use client";
-import { type Property } from "@/lib/schema";
+import * as React from "react";
 
-export default function Pin({ property, isSelected }: { property: Property; isSelected: boolean }) {
+const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,4.5,2,10c0,2,0.6,3.9,1.6,5.4c0,0.1,0.1,0.2,0.2,0.3
+  c0,0,0.1,0.1,0.1,0.2c0.2,0.3,0.4,0.6,0.7,0.9c2.6,3.1,7.4,7.6,7.4,7.6s4.8-4.5,7.4-7.5c0.2-0.3,0.5-0.6,0.7-0.9
+  C20.1,15.8,20.2,15.8,20.2,15.7z`;
+
+interface PinProps {
+  isSelected: boolean;
+}
+
+function Pin({ isSelected }: PinProps) {
   return (
-    <div className="group relative cursor-pointer">
-      <div
-        className={`absolute -top-2 -left-2 w-8 h-8 rounded-full 
-        ${isSelected ? "bg-primary/20" : "bg-secondary/20"}
-        transition-all duration-300 ease-out`}
-      />
-      <div
-        className={`w-4 h-4 rounded-full shadow-lg border-2 transition-all
-        ${isSelected ? "bg-primary border-primary-content scale-125" : "bg-secondary border-base-100 group-hover:scale-110"}`}
-      />
-      <div
-        className={`absolute -top-8 -left-4 px-2 py-1 rounded-md text-xs font-medium
-        bg-base-100 shadow-md opacity-0 group-hover:opacity-100 transition-opacity
-        ${isSelected ? "opacity-100" : ""}`}
-      >
-        {property.property || property.subcommunity}
-      </div>
-    </div>
+    <svg
+      height={30}
+      viewBox="0 0 24 24"
+      className={`cursor-pointer transition-all duration-300 ease-out
+        ${isSelected ? "fill-primary scale-125" : "fill-secondary group-hover:scale-110"}`}
+      stroke="none"
+    >
+      <path d={ICON} />
+    </svg>
   );
 }
+
+export default React.memo(Pin);

@@ -1,36 +1,50 @@
+"use client";
+
 import { type Property } from "@/lib/schema";
 import Image from "next/image";
 import MappingBadge from "@/components/properties/MappingBadge";
+import PropertyName from "@/components/properties/PropertyName";
+import PropertyDetails from "@/components/properties/PropertyDetails";
 
-export default function PropertyCard({ property }: { property: Property }) {
+interface PropertyCardProps {
+  property: Property;
+  isSelected: boolean;
+  onClick?: () => void;
+  onClose?: () => void;
+}
+
+export default function PropertyCard({ property, isSelected, onClick, onClose }: PropertyCardProps) {
   return (
-    <div className="card shadow-sm hover:shadow-md transition-shadow flex flex-col gap-2 p-4">
-      <figure className="h-40 bg-base-500 relative">
-        <Image
-          src={property.image}
-          alt={property.property || property.subcommunity}
-          width={600}
-          height={400}
-          className="h-40 bg-base-200 rounded-lg"
-        />
+    <div className="relative">
+      {onClose && (
+        <button type="button" onClick={onClose} className="absolute top-1 right-1 btn btn-circle btn-sm btn-ghost z-20" aria-label="Close">
+          ✕
+        </button>
+      )}
 
-        <div className="absolute top-2 left-2">
-          <MappingBadge status={property.status} />
-        </div>
-      </figure>
+      <div
+        className={`card bg-base-100 shadow-sm hover:shadow-md transition-all ${onClick ? "cursor-pointer" : ""} ${
+          isSelected ? "ring-4 ring-primary" : ""
+        }`}
+        onClick={onClick}
+      >
+        <figure className="h-40 bg-base-500 relative">
+          <Image
+            src={property.image}
+            alt={property.property || property.subcommunity}
+            width={600}
+            height={400}
+            className="h-40 bg-base-200 rounded-lg"
+          />
 
-      <div className="card-body p-4 flex flex-col gap-1">
-        <h3 className="card-title text-lg">{property.property || property.subcommunity}</h3>
+          <div className="absolute top-2 left-2">
+            <MappingBadge status={property.status} />
+          </div>
+        </figure>
 
-        <div className="text-sm space-y-2">
-          <p className="flex items-center gap-1">
-            <span className="opacity-60">Community:</span>
-            <span className="font-medium">{property.community}</span>
-          </p>
-          <p className="flex items-center gap-1">
-            <span className="opacity-60">Subcommunity:</span>
-            <span className="font-medium">{property.subcommunity}</span>
-          </p>
+        <div className="card-body p-4 flex flex-col gap-1">
+          <PropertyName property={property} />
+          <PropertyDetails property={property} />
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ export default async function Home({ searchParams }: PageProps) {
 
   return (
     <div className="drawer lg:drawer-open">
-      <input id="property-drawer" type="checkbox" className="drawer-toggle" />
+      <input id="property-drawer" type="checkbox" className="drawer-toggle" aria-label="Toggle property drawer" />
 
       {/* Property List Sidebar */}
       <div className="drawer-side h-screen z-20 px-4">
