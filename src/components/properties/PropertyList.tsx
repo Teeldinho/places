@@ -44,6 +44,16 @@ export default function PropertyList({ properties }: { properties: PropertyRto[]
     overscan: 5,
   });
 
+  useEffect(() => {
+    if (!selectedId) return;
+
+    const selectedIndex = visibleProperties.findIndex((p) => p.id === selectedId);
+    if (selectedIndex >= 0) {
+      const rowIndex = Math.floor(selectedIndex / columnCount);
+      virtualizer.scrollToIndex(rowIndex, { behavior: "smooth", align: "center" });
+    }
+  }, [selectedId, visibleProperties, columnCount, virtualizer]);
+
   return (
     <div className="w-[40vw] h-screen p-4 border-r border-base-200 flex flex-col gap-6">
       <div className="flex flex-col gap-4">
