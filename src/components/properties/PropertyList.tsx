@@ -50,7 +50,12 @@ export default function PropertyList({ properties }: { properties: PropertyRto[]
     const selectedIndex = visibleProperties.findIndex((p) => p.id === selectedId);
     if (selectedIndex >= 0) {
       const rowIndex = Math.floor(selectedIndex / columnCount);
-      virtualizer.scrollToIndex(rowIndex, { behavior: "smooth", align: "center" });
+      const virtualItems = virtualizer.getVirtualItems();
+      const isVisible = virtualItems.some((vItem) => vItem.index === rowIndex);
+
+      if (!isVisible) {
+        virtualizer.scrollToIndex(rowIndex, { behavior: "smooth", align: "center" });
+      }
     }
   }, [selectedId, visibleProperties, columnCount, virtualizer]);
 

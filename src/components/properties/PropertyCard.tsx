@@ -35,7 +35,7 @@ export default function PropertyCard({ property, isSelected, onClick, onClose }:
             alt={property.property || property.subcommunity || "Property Image"}
             width={600}
             height={400}
-            className="h-40 bg-base-200 rounded-lg"
+            className="bg-base-200 rounded-lg"
           />
 
           <div className="absolute top-2 left-2">

@@ -1,12 +1,17 @@
 import { type Property } from "@/lib/schema";
 
-import prp from "../../public/prp.jpg";
-import prp1 from "../../public/prp1.jpg";
-import prp2 from "../../public/prp2.jpg";
-import prp3 from "../../public/prp3.jpg";
+import prp from "../../public/assets/prp.jpg";
+import prp1 from "../../public/assets/prp1.jpg";
+import prp2 from "../../public/assets/prp2.jpg";
+import prp3 from "../../public/assets/prp3.jpg";
+import prp4 from "../../public/assets/prp4.jpg";
+import prp5 from "../../public/assets/prp5.jpg";
+import prp6 from "../../public/assets/prp6.jpg";
+import prp7 from "../../public/assets/prp7.jpg";
+import prp8 from "../../public/assets/prp8.jpg";
 
 export function getPropertyImage(): string {
-  const images = [prp.src, prp1.src, prp2.src, prp3.src];
+  const images = [prp4.src, prp7.src, prp2.src, prp8.src, prp1.src, prp5.src, prp.src, prp3.src, prp6.src];
   return images[Math.floor(Math.random() * images.length)] || "https://placehold.co/600x400";
 }
 
