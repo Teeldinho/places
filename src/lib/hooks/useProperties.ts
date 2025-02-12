@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { type Property } from "@/lib/schema";
+import { type PropertyRto } from "@/lib/schema";
 
 /**
  * Custom hook for managing property data
@@ -13,7 +13,7 @@ import { type Property } from "@/lib/schema";
  *
  * @returns An object containing property management utilities
  */
-export function useProperties(properties: Property[], sort?: { field?: string; direction: string }, query?: string) {
+export function useProperties(properties: PropertyRto[], sort?: { field?: string; direction: string }, query?: string) {
   return useMemo(() => {
     const filtered = properties.filter((p) => {
       const search = query?.toLowerCase() || "";
@@ -24,8 +24,8 @@ export function useProperties(properties: Property[], sort?: { field?: string; d
 
     const sorted = [...filtered].sort((a, b) => {
       if (!sort?.field) return 0;
-      const valueA = a[sort.field as keyof Property]?.toString().toLowerCase() || "";
-      const valueB = b[sort.field as keyof Property]?.toString().toLowerCase() || "";
+      const valueA = a[sort.field as keyof PropertyRto]?.toString().toLowerCase() || "";
+      const valueB = b[sort.field as keyof PropertyRto]?.toString().toLowerCase() || "";
       return sort.direction === "asc" ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
     });
 

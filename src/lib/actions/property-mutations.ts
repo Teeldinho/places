@@ -1,46 +1,61 @@
+"use server";
+
 import { z } from "zod";
-import { type Property, AddPropertySchema, type AddPropertyData, EditPropertySchema, type EditPropertyData } from "@/lib/schema";
-import { dummyProperties } from "@/lib/data/properties";
+import { type Property, mapPropertyDtoToRto, AddPropertySchema, EditPropertySchema } from "@/lib/schema";
+import { getPropertyById } from "@/lib/queries/property-queries";
+import { createClient } from "@/utils/supabase/server";
 
-const properties: Property[] = [...dummyProperties];
+export async function addPropertyAction(newProperty: Property) {
+  const supabase = await createClient();
 
-// Simulate server action delay
-const sleep = (ms = 100) => new Promise((resolve) => setTimeout(resolve, ms));
+  // Map the new property to the RTO
+  const rto = mapPropertyDtoToRto(newProperty);
 
-export async function addPropertyAction(data: AddPropertyData) {
-  await sleep(); // Simulate network latency
+  // Validate the new property
+  const parsed = AddPropertySchema.safeParse(rto);
 
-  try {
-    const parsedData = AddPropertySchema.parse(data);
+  // If the new property is not valid, return an error
+  if (!parsed.success) return { error: parsed.error.format() };
 
-    const newProperty: Property = {
-      ...parsedData,
-      id: crypto.randomUUID(),
-      lastUpdated: new Date(),
-    };
-    properties.push(newProperty);
-    return { data: newProperty };
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return { error: error.format() };
-    }
-    return { error: "An unexpected error occurred." };
-  }
+  // Upsert the new property
+  const { data, error } = await supabase.from("places").upsert(parsed.data);
+
+  // If there is an error, return an error
+  if (error) return { error: error.message };
+
+  // Return the new property
+  return { success: true, data };
 }
 
-export async function editPropertyAction(data: EditPropertyData) {
-  await sleep(); // Simulate network latency
+export async function editPropertyAction(updatedProperty: Property) {
+  const supabase = await createClient();
+
+  // Map the updated property to the RTO
+  const rto = mapPropertyDtoToRto(updatedProperty);
+
+  // Validate the updated property
+  const parsed = EditPropertySchema.safeParse(rto);
+
+  // If the updated property is not valid, return an error
+  if (!parsed.success) return { error: parsed.error.format() };
 
   try {
-    const parsedData = EditPropertySchema.parse(data);
-    const index = properties.findIndex((p) => p.id === parsedData.id);
+    // Get the existing property
+    const property = await getPropertyById(parsed.data.id);
 
-    if (index === -1) {
+    // If the property is not found, return an error
+    if (!property) {
       return { error: "Property not found." };
     }
 
-    properties[index] = { ...parsedData, lastUpdated: new Date() };
-    return { data: properties[index] };
+    // Update the property
+    const { data, error } = await supabase.from("places").update(parsed.data).eq("id", parsed.data.id);
+
+    // If there is an error, return an error
+    if (error) return { error: error.message };
+
+    // Return the updated property
+    return { success: true, data };
   } catch (error) {
     if (error instanceof z.ZodError) {
       return { error: error.format() };

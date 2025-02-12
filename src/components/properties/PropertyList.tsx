@@ -1,6 +1,6 @@
 "use client";
 
-import { type Property } from "@/lib/schema";
+import { type PropertyRto } from "@/lib/schema";
 import PropertyCard from "@/components/properties/PropertyCard";
 import { useMapParams } from "@/lib/store/client";
 import { useProperties } from "@/lib/hooks/useProperties";
@@ -9,7 +9,7 @@ import { useState } from "react";
 import SortDropdown from "@/components/properties/SortDropdown";
 import SearchInput from "@/components/properties/SearchInput";
 
-export default function PropertyList({ properties }: { properties: Property[] }) {
+export default function PropertyList({ properties }: { properties: PropertyRto[] }) {
   const { sort, query } = useMapParams();
   const { mappedProperties, unmappedProperties } = useProperties(properties, sort, query);
 

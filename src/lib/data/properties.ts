@@ -1,10 +1,10 @@
-import { type Property } from "@/lib/schema";
+import { PropertyRto } from "@/lib/schema";
 import prp from "../../../public/prp.jpg";
 import prp1 from "../../../public/prp1.jpg";
 import prp2 from "../../../public/prp2.jpg";
 import prp3 from "../../../public/prp3.jpg";
 
-export const dummyProperties: Property[] = [
+export const dummyProperties: PropertyRto[] = [
   {
     id: "dub-awr-001",
     city: "Dubai",
@@ -14,8 +14,6 @@ export const dummyProperties: Property[] = [
     coordinates: { lat: 25.205, lng: 55.271 },
     image: prp.src,
     isMapped: true,
-    description: "This is a description",
-    lastUpdated: new Date(),
   },
   {
     id: "dub-zbl-002",
@@ -26,8 +24,6 @@ export const dummyProperties: Property[] = [
     coordinates: { lat: 25.207, lng: 55.275 },
     image: prp1.src,
     isMapped: true,
-    description: "This is a description",
-    lastUpdated: new Date(),
   },
   {
     id: "dub-mir-003",
@@ -38,7 +34,6 @@ export const dummyProperties: Property[] = [
     isMapped: true,
     coordinates: { lat: 25.201, lng: 55.269 },
     image: prp2.src,
-    lastUpdated: new Date(),
   },
   {
     id: "dub-wsl-004",
@@ -49,7 +44,5 @@ export const dummyProperties: Property[] = [
     isMapped: false,
     coordinates: { lat: 25.203, lng: 55.273 },
     image: prp3.src,
-    lastUpdated: new Date(),
-    description: "This is a description",
   },
 ];

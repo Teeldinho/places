@@ -1,9 +1,8 @@
 import PropertyList from "@/components/properties/PropertyList";
-import { dummyProperties } from "@/lib/data/properties";
 import { mapParamsCache } from "@/lib/store/cache";
 import type { SearchParams } from "nuqs/server";
 import MapWrapper from "@/components/map/MapWrapper";
-import { createClient } from "@/utils/supabase/server";
+import { getAllProperties } from "@/lib/queries/property-queries";
 
 type PageProps = {
   searchParams: Promise<SearchParams>;
@@ -13,11 +12,9 @@ export default async function Home({ searchParams }: PageProps) {
   // Parse the search params
   await mapParamsCache.parse(searchParams);
 
-  const supabase = createClient();
+  const properties = await getAllProperties();
 
-  const { data } = await (await supabase).from("places").select();
-
-  console.log("properties = ", data);
+  console.log("properties = ", properties);
 
   return (
     <div className="drawer lg:drawer-open">
@@ -26,12 +23,12 @@ export default async function Home({ searchParams }: PageProps) {
       {/* Property List Sidebar */}
       <div className="drawer-side h-screen z-20 px-4">
         <label htmlFor="property-drawer" className="drawer-overlay"></label>
-        <PropertyList properties={dummyProperties} />
+        <PropertyList properties={properties} />
       </div>
 
       {/* Main Map View */}
       <div className="drawer-content">
-        <MapWrapper properties={dummyProperties} />
+        <MapWrapper properties={properties} />
       </div>
     </div>
   );

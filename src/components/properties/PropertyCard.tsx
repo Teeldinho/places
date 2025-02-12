@@ -1,6 +1,6 @@
 "use client";
 
-import { type Property } from "@/lib/schema";
+import { type PropertyRto } from "@/lib/schema";
 import Image from "next/image";
 import MappingBadge from "@/components/properties/MappingBadge";
 import PropertyName from "@/components/properties/PropertyName";
@@ -8,7 +8,7 @@ import PropertyDetails from "@/components/properties/PropertyDetails";
 import PropertyModal from "@/components/properties/PropertyModal";
 
 interface PropertyCardProps {
-  property: Property;
+  property: PropertyRto;
   isSelected: boolean;
   onClick?: () => void;
   onClose?: () => void;
@@ -31,7 +31,7 @@ export default function PropertyCard({ property, isSelected, onClick, onClose }:
       >
         <figure className="h-40 bg-base-500 relative">
           <Image
-            src={property.image || "https://placehold.co/600x400"}
+            src={property.image}
             alt={property.property || property.subcommunity || "Property Image"}
             width={600}
             height={400}

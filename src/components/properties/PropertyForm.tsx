@@ -4,18 +4,19 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addPropertyAction, editPropertyAction } from "@/lib/actions/property-mutations";
-import { AddPropertySchema, EditPropertySchema, type Property } from "@/lib/schema";
+import { AddPropertySchema, EditPropertySchema, type PropertyRto } from "@/lib/schema";
 import { DEFAULT_LAT, DEFAULT_LNG, isWithinGeofence } from "@/lib/geofence";
 
 interface PropertyFormProps {
-  property?: Property; // Optional property for editing
-  onSuccess: (property: Property) => void;
+  property?: PropertyRto; // Optional property for editing
+  onSuccess: () => void;
 }
 
 export default function PropertyForm({ property, onSuccess }: PropertyFormProps) {
   const isEditMode = Boolean(property);
 
-  const formSchema = isEditMode ? EditPropertySchema : AddPropertySchema;
+  const FormSchema = isEditMode ? EditPropertySchema : AddPropertySchema;
+  type FormSchemaType = z.infer<typeof FormSchema>;
 
   const {
     register,
@@ -23,20 +24,21 @@ export default function PropertyForm({ property, onSuccess }: PropertyFormProps)
     formState: { errors, isSubmitting },
     reset,
     setError,
-  } = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  } = useForm<FormSchemaType>({
+    resolver: zodResolver(FormSchema),
     defaultValues: isEditMode
-      ? property
+      ? {
+          property: property?.property ?? undefined,
+          coordinates: property?.coordinates ?? { lat: DEFAULT_LAT, lng: DEFAULT_LNG },
+          isMapped: property?.isMapped ?? false,
+        }
       : {
-          coordinates: {
-            lat: DEFAULT_LAT,
-            lng: DEFAULT_LNG,
-          },
+          coordinates: { lat: DEFAULT_LAT, lng: DEFAULT_LNG },
           isMapped: false,
         },
   });
 
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+  const onSubmit = async (data: FormSchemaType) => {
     if (!isWithinGeofence(data.coordinates.lng, data.coordinates.lat)) {
       setError("coordinates", { message: "Coordinates must be within Dubai area" });
       return;
@@ -44,15 +46,23 @@ export default function PropertyForm({ property, onSuccess }: PropertyFormProps)
 
     let result;
     if (isEditMode) {
-      result = await editPropertyAction({ ...data, id: property!.id });
+      result = await editPropertyAction({
+        ...data,
+        id: property!.id,
+        city: property?.city ?? "Dubai",
+      });
     } else {
-      result = await addPropertyAction(data);
+      result = await addPropertyAction({
+        ...data,
+        id: crypto.randomUUID(),
+        city: "Dubai",
+      });
     }
 
-    if (result.error) {
+    if (result?.error) {
       console.error("Server action error:", result.error);
-    } else if (result.data) {
-      onSuccess(result.data);
+    } else if (result) {
+      onSuccess();
       reset();
     }
   };

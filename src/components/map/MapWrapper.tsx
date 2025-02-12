@@ -1,6 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
-import { type Property } from "@/lib/schema";
+import { type PropertyRto } from "@/lib/schema";
 
 const MapView = dynamic(() => import("./MapView"), {
   ssr: false,
@@ -11,6 +11,6 @@ const MapView = dynamic(() => import("./MapView"), {
   ),
 });
 
-export default function MapWrapper({ properties }: { properties: Property[] }) {
+export default function MapWrapper({ properties }: { properties: PropertyRto[] }) {
   return <MapView properties={properties} />;
 }

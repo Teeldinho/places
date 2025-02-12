@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { FullscreenControl, Map, Marker, NavigationControl, ScaleControl, Popup } from "@vis.gl/react-maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { type Property } from "@/lib/schema";
+import { type PropertyRto } from "@/lib/schema";
 import { useMapParams } from "@/lib/store/client";
 import Pin from "@/components/map/Pin";
 import PropertyCard from "@/components/properties/PropertyCard";
@@ -13,7 +13,7 @@ import ResetButton from "@/components/map/ResetButton";
 import AddPropertyButton from "./AddPropertyButton";
 import { isWithinGeofence } from "@/lib/geofence";
 
-export default function MapView({ properties }: { properties: Property[] }) {
+export default function MapView({ properties }: { properties: PropertyRto[] }) {
   const { lat, lng, zoom, selectedId, selectProperty, clearSelection, query } = useMapParams();
   const [map, setMap] = useState<maplibregl.Map | null>(null);
 

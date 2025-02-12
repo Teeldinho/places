@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import PropertyForm from "@/components/properties/PropertyForm";
-import { type Property } from "@/lib/schema";
+import { type PropertyRto } from "@/lib/schema";
 
 interface PropertyModalProps {
-  property?: Property;
+  property?: PropertyRto;
   trigger: React.ReactNode;
 }
 

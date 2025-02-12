@@ -3,7 +3,7 @@
 import { useCallback } from "react";
 import { useMap } from "@vis.gl/react-maplibre";
 import { DEFAULT_LAT, DEFAULT_LNG, DEFAULT_ZOOM, PROPERTY_ZOOM } from "@/lib/geofence";
-import { type Property } from "@/lib/schema";
+import { type PropertyRto } from "@/lib/schema";
 import { isWithinGeofence, getGeofenceBounds } from "@/lib/geofence";
 
 interface UseMapNavigationOptions {
@@ -46,7 +46,7 @@ export function useMapNavigation() {
   );
 
   const focusProperty = useCallback(
-    (property: Property, options: UseMapNavigationOptions = {}) => {
+    (property: PropertyRto, options: UseMapNavigationOptions = {}) => {
       if (!map) return;
 
       map.flyTo({

@@ -1,7 +1,7 @@
-import { type Property } from "@/lib/schema";
+import { type PropertyRto } from "@/lib/schema";
 
 interface PropertyNameProps {
-  property: Property;
+  property: PropertyRto;
 }
 
 export default function PropertyName({ property }: PropertyNameProps) {
