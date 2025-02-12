@@ -1,0 +1,15 @@
+import { z } from "zod";
+
+export const DEFAULT_LAT = 25.2048; // Dubai
+export const DEFAULT_LNG = 55.2708; // Dubai
+export const DEFAULT_ZOOM = 12;
+
+export const MapParamsSchema = z.object({
+  lat: z.number().min(-90).max(90).default(DEFAULT_LAT),
+  lng: z.number().min(-180).max(180).default(DEFAULT_LNG),
+  zoom: z.number().min(1).max(18).default(DEFAULT_ZOOM),
+  selectedId: z.string().uuid().optional(),
+  activeTab: z.enum(["mapped", "unmapped"]).default("mapped"),
+});
+
+export type MapParams = z.infer<typeof MapParamsSchema>;
