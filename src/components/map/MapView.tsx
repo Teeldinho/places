@@ -14,11 +14,11 @@ import AddPropertyButton from "./AddPropertyButton";
 import { isWithinGeofence } from "@/lib/geofence";
 
 export default function MapView({ properties }: { properties: Property[] }) {
-  const { lat, lng, zoom, selectedId, selectProperty, clearSelection } = useMapParams();
+  const { lat, lng, zoom, selectedId, selectProperty, clearSelection, query } = useMapParams();
   const [map, setMap] = useState<maplibregl.Map | null>(null);
 
-  const { mappedProperties, getPropertyById } = useProperties(properties);
-  const selectedProperty = getPropertyById(selectedId || "");
+  const { mappedProperties } = useProperties(properties, undefined, query);
+  const selectedProperty = mappedProperties.find((p) => p.id === selectedId);
 
   const { focusProperty } = useMapNavigation();
 
