@@ -2,8 +2,9 @@
 
 import { useCallback } from "react";
 import { useMap } from "@vis.gl/react-maplibre";
-import { DEFAULT_LAT, DEFAULT_LNG, DEFAULT_ZOOM, PROPERTY_ZOOM } from "@/lib/schema";
+import { DEFAULT_LAT, DEFAULT_LNG, DEFAULT_ZOOM, PROPERTY_ZOOM } from "@/lib/geofence";
 import { type Property } from "@/lib/schema";
+import { isWithinGeofence, getGeofenceBounds } from "@/lib/geofence";
 
 interface UseMapNavigationOptions {
   duration?: number;
@@ -58,9 +59,15 @@ export function useMapNavigation() {
     [map]
   );
 
+  const isWithinGeofenceHook = useCallback((lng: number, lat: number) => {
+    return isWithinGeofence(lng, lat);
+  }, []);
+
   return {
     flyTo,
     resetMap,
     focusProperty,
+    isWithinGeofence: isWithinGeofenceHook,
+    geofenceBounds: getGeofenceBounds(),
   };
 }

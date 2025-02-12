@@ -10,12 +10,14 @@ import PropertyCard from "@/components/properties/PropertyCard";
 import { useProperties } from "@/lib/hooks/useProperties";
 import { useMapNavigation } from "@/lib/hooks/useMapNavigation";
 import ResetButton from "@/components/map/ResetButton";
+import AddPropertyButton from "./AddPropertyButton";
+import { isWithinGeofence } from "@/lib/geofence";
 
 export default function MapView({ properties }: { properties: Property[] }) {
   const { lat, lng, zoom, selectedId, selectProperty, clearSelection } = useMapParams();
   const [map, setMap] = useState<maplibregl.Map | null>(null);
 
-  const { getPropertyById } = useProperties(properties);
+  const { mappedProperties, getPropertyById } = useProperties(properties);
   const selectedProperty = getPropertyById(selectedId || "");
 
   const { focusProperty } = useMapNavigation();
@@ -43,12 +45,19 @@ export default function MapView({ properties }: { properties: Property[] }) {
         }}
         style={{ width: "100%", height: "100%" }}
         mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+        onClick={(e) => {
+          const { lng, lat } = e.lngLat;
+          if (!isWithinGeofence(lng, lat)) {
+            alert("Please select location within Dubai area");
+            return;
+          }
+        }}
       >
         <FullscreenControl position="top-left" />
         <NavigationControl position="top-left" />
         <ScaleControl />
 
-        {properties.map((property) => (
+        {mappedProperties.map((property) => (
           <Marker
             key={property.id}
             longitude={property.coordinates.lng}
@@ -63,7 +72,7 @@ export default function MapView({ properties }: { properties: Property[] }) {
           </Marker>
         ))}
 
-        {selectedProperty && (
+        {selectedProperty?.isMapped && (
           <Popup
             anchor="bottom"
             offset={10}
@@ -78,6 +87,10 @@ export default function MapView({ properties }: { properties: Property[] }) {
 
         <div className="absolute top-2 right-2 z-10">
           <ResetButton />
+        </div>
+
+        <div className="absolute top-6 left-16 z-10">
+          <AddPropertyButton />
         </div>
       </Map>
     </div>

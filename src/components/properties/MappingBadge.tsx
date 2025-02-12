@@ -1,3 +1,3 @@
-export default function MappingBadge({ status }: { status: string }) {
-  return <div className={`badge badge-soft badge-secondary ml-2 ${status === "mapped" ? "badge-success" : "badge-warning"}`}>{status}</div>;
+export default function MappingBadge({ isMapped }: { isMapped: boolean }) {
+  return <div className={`badge ${isMapped ? "badge-success" : "badge-warning"}`}>{isMapped ? "Mapped" : "Unmapped"}</div>;
 }

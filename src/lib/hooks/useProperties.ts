@@ -12,8 +12,10 @@ import { type Property } from "@/lib/schema";
  * @returns An object containing property management utilities
  */
 export function useProperties(properties: Property[]) {
-  const mappedProperties = useMemo(() => properties.filter((p) => p.status === "mapped"), [properties]);
-  const unmappedProperties = useMemo(() => properties.filter((p) => p.status === "unmapped"), [properties]);
+  const mappedProperties = useMemo(() => properties.filter((p) => p.isMapped), [properties]);
+
+  const unmappedProperties = useMemo(() => properties.filter((p) => !p.isMapped), [properties]);
+
   const getPropertyById = useCallback((id: string) => properties.find((p) => p.id === id), [properties]);
 
   return {
