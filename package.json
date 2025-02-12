@@ -10,11 +10,17 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.0.6",
+    "@types/mapbox-gl": "^3.4.1",
+    "@types/maplibre-gl": "^1.14.0",
+    "mapbox-gl": "^3.9.4",
+    "maplibre-gl": "^5.1.0",
     "next": "15.1.7",
     "nuqs": "^2.3.2",
     "postcss": "^8.5.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-map-gl": "^8.0.1",
+    "react-maplibre": "^1.0.0",
     "tailwindcss": "^4.0.6",
     "zod": "^3.24.2"
   },

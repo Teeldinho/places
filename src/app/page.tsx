@@ -2,7 +2,7 @@ import PropertyList from "@/components/properties/PropertyList";
 import { dummyProperties } from "@/lib/data/properties";
 import { mapParamsCache } from "@/lib/store/cache";
 import type { SearchParams } from "nuqs/server";
-
+import MapWrapper from "@/components/map/MapWrapper";
 type PageProps = {
   searchParams: Promise<SearchParams>;
 };
@@ -22,11 +22,8 @@ export default async function Home({ searchParams }: PageProps) {
       </div>
 
       {/* Main Map View */}
-      <div className="drawer-content flex justify-center items-center">
-        <div className="text-center p-8">
-          <h1 className="text-2xl font-bold mb-4">Map View (Coming Soon)</h1>
-          <p className="text-base-content/80">Interactive map implementation will be added here</p>
-        </div>
+      <div className="drawer-content">
+        <MapWrapper properties={dummyProperties} />
       </div>
     </div>
   );

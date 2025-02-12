@@ -14,6 +14,7 @@ export const dummyProperties: Property[] = [
     coordinates: { lat: 25.205, lng: 55.271 },
     image: prp.src,
     status: "mapped",
+    description: "This is a description",
     lastUpdated: new Date(),
   },
   {
@@ -25,6 +26,7 @@ export const dummyProperties: Property[] = [
     coordinates: { lat: 25.207, lng: 55.275 },
     image: prp1.src,
     status: "mapped",
+    description: "This is a description",
     lastUpdated: new Date(),
   },
   {
@@ -46,5 +48,6 @@ export const dummyProperties: Property[] = [
     coordinates: { lat: 25.203, lng: 55.273 },
     image: prp3.src,
     lastUpdated: new Date(),
+    description: "This is a description",
   },
 ];
