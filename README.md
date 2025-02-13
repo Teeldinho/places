@@ -1,6 +1,6 @@
 # Places
 
-Places is a web application for browsing property listings on a map, showcasing modern web technologies and best practices for data fetching, state management, and UI design. This project leverages Next.js 15, nuqs, Supabase, and other cutting-edge tools to provide a seamless and efficient user experience.
+Places is a web application for browsing large lists of property listings on a map, showcasing modern web technologies and best practices for data fetching, state management, and UI design. This project leverages Next.js 15, nuqs, Supabase, and other cutting-edge tools to provide a seamless and efficient user experience.
 
 ## Project Overview
 
@@ -21,7 +21,6 @@ Places provides a map view of property listings, allowing users to explore prope
 ### Backend
 
 - **Supabase**: Used as the primary database for storing property data.
-- **Supabase Storage**: Used for storing property images.
 - **Next.js Server Actions**: Used for performing database mutations.
 
 ### Additional Packages
@@ -41,7 +40,7 @@ Places provides a map view of property listings, allowing users to explore prope
 - **Sorting**: Allows users to sort properties by property name, community, or subcommunity.
   - **URL-Driven Sorting**: Sort parameters are also managed through `nuqs`, maintaining consistency and shareability. The available sort options are: property name, community, and subcommunity.
 - **Property Details**: Displays detailed information about each property in a popup.
-- **Add/Edit Property**: Allows users to add new properties or edit existing ones (though the UI for this is not fully fleshed out in this version).
+- **Add/Edit Property**: Allows users to add new properties or edit existing ones. (mutations need improvement).
 - **State Management**: Utilizes URL query parameters for state management, enabling shareable links and bookmarkable states.
 - **Responsive Design**: Provides a responsive user interface that adapts to different screen sizes.
 
@@ -72,7 +71,7 @@ To handle large datasets of properties, the project utilizes Tanstack Virtual (`
 
 ### Data Fetching with Custom Hooks
 
-Property data is fetched from Supabase using custom hooks (`useProperties` in `useProperties.ts` and the query in `property-queries.ts`). This approach abstracts the data fetching logic from the components, making them more reusable and testable. It also allows for easy switching to a different data source in the future. The `getAllProperties` function uses the Supabase client to fetch data and then maps the DTO to the RTO using `mapPropertyDtoToRto`.
+Property data is fetched from Supabase using custom hooks (`useProperties` hook and the query in `property-queries.ts`). This approach abstracts the data fetching logic from the components, making them more reusable and testable. It also allows for easy switching to a different data source in the future. The `getAllProperties` function uses the Supabase client to fetch data and then maps the DTO to the RTO using `mapPropertyDtoToRto`.
 
 ### Schema -> DTO -> RTO -> Mapper Function Flow
 
@@ -91,10 +90,9 @@ The project is structured to separate concerns as much as possible. Components a
 
 ## Areas of Improvement
 
-- **UI Styling**: The current DaisyUI version is a beta version running on Tailwind CSS v4, which results in styling issues (particularly with padding). Consider migrating to a stable UI library or customizing the styling.
+- **UI Styling**: The current DaisyUI version is a beta version running on Tailwind CSS v4, which results in styling issues (particularly with padding -- manual fix applied).
 - **Geocoding**: Implement geocoding to automatically determine the location coordinates based on the property address. This would improve data accuracy and user experience.
 - **Enhanced Search Functionality**: Improve search to include more product attributes (e.g., price, number of bedrooms).
-- **Pagination**: Implementing pagination for better performance with large datasets, especially for the unmapped properties list.
 - **Complete Add/Edit Functionality**: Fully implement the UI and logic for adding and editing properties.
 
 ## Getting Started
@@ -125,12 +123,11 @@ The project is structured to separate concerns as much as possible. Components a
 
 ## Screenshots
 
-![Home Page](public/assets/main-image.png)
-![Unmapped Properties](public/assets/image-6.png)
-![Property Card](public/assets/image-5.png)
-![Database Table](public/assets/image-1.png)
-![Search Functionality](public/assets/image-3.png)
-![Search Results](public/assets/image-4.png)
+![Mapped Properties - Home Page](public/assets/main-image.png)
+![Unmapped Properties](public/assets/image-1.png)
+![Search Results](public/assets/image-2.png)
+![Database Table](public/assets/image-5.png)
+![Add a Property](public/assets/image-3.png)
 
 ## Conclusion
 
