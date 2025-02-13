@@ -2,7 +2,7 @@ import * as turf from "@turf/turf";
 
 export const DEFAULT_LAT = 25.2048; // Dubai
 export const DEFAULT_LNG = 55.2708; // Dubai
-export const DEFAULT_ZOOM = 14; // 14 is the default zoom level for the map
+export const DEFAULT_ZOOM = 15; // the default zoom level for the map
 export const PROPERTY_ZOOM = 18; // Zoom level when focusing on a property
 export const AREA_GEOFENCE = turf.circle([DEFAULT_LNG, DEFAULT_LAT], 4.5, { units: "kilometers" }); // restrict to a radius
 
