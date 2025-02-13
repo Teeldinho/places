@@ -61,7 +61,7 @@ export default function PropertyList({ properties }: { properties: PropertyRto[]
 
   return (
     <div
-      className="w-[90vw] lg:w-[40vw] h-screen p-4 border-r border-base-200 flex flex-col gap-6 bg-base-300"
+      className="w-[90vw] lg:w-[40vw] h-screen p-4 border-r border-base-200 flex flex-col gap-4 bg-base-300"
       style={{
         padding: "12px",
         paddingBottom: "0px",
@@ -76,6 +76,7 @@ export default function PropertyList({ properties }: { properties: PropertyRto[]
             style={{
               marginLeft: "8px",
               marginRight: "8px",
+              marginTop: "8px",
             }}
           >
             <input

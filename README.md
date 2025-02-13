@@ -6,7 +6,7 @@ Places is a web application for browsing large lists of property listings on a m
 
 Places provides a map view of property listings, allowing users to explore properties based on their location. Unmapped properties are displayed in a dedicated sidebar tab.
 
-![Main Image](public/assets/main-image.png)
+![Main Image](public/assets/main-image-a.png)
 
 ### Frontend
 
@@ -63,7 +63,7 @@ The project uses Maplibre GL JS, an open-source library for rendering interactiv
 
 ### Geospatial Analysis with Turf.js
 
-Turf.js is used for performing geospatial calculations, such as determining if a coordinate is within a specific geofence (though this specific geofencing functionality is not fully implemented in the current code). This library provides a comprehensive set of tools for working with geospatial data.
+Turf.js is used for performing geospatial calculations, such as determining if a coordinate is within a specific geofence. This library provides a comprehensive set of tools for working with geospatial data.
 
 ### Tanstack Virtual for Efficient List Rendering
 
@@ -123,11 +123,11 @@ The project is structured to separate concerns as much as possible. Components a
 
 ## Screenshots
 
-![Mapped Properties - Home Page](public/assets/main-image.png)
-![Unmapped Properties](public/assets/image-1.png)
-![Search Results](public/assets/image-2.png)
-![Database Table](public/assets/image-5.png)
-![Add a Property](public/assets/image-3.png)
+![Mapped Properties - Home Page](public/assets/main-image-a.png)
+![Unmapped Properties](public/assets/image-1-a.png)
+![Search Results](public/assets/image-2-a.png)
+![Database Table](public/assets/image-5-a.png)
+![Add a Property](public/assets/image-3-a.png)
 
 ## Conclusion
 
