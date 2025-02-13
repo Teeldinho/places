@@ -69,16 +69,24 @@ export default function PropertyForm({ property, onSuccess }: PropertyFormProps)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 p-4">
-      <div>
+      <div className="flex flex-col gap-2">
         <label htmlFor="property" className="label">
           Property Name
         </label>
-        <input id="property" {...register("property")} className="input input-bordered w-full" placeholder="Enter property name" />
+        <input
+          id="property"
+          {...register("property")}
+          className="input input-bordered w-full"
+          placeholder="Enter property name"
+          style={{
+            padding: "12px",
+          }}
+        />
         {errors.property && <span className="text-error">{errors.property.message}</span>}
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <div>
+        <div className="flex flex-col gap-2">
           <label htmlFor="coordinates.lat" className="label">
             Latitude
           </label>
@@ -88,11 +96,14 @@ export default function PropertyForm({ property, onSuccess }: PropertyFormProps)
             step="any"
             {...register("coordinates.lat", { valueAsNumber: true })}
             className="input input-bordered w-full"
+            style={{
+              padding: "12px",
+            }}
           />
           {errors.coordinates?.lat && <span className="text-error">{errors.coordinates.lat.message}</span>}
         </div>
 
-        <div>
+        <div className="flex flex-col gap-2">
           <label htmlFor="coordinates.lng" className="label">
             Longitude
           </label>
@@ -102,6 +113,9 @@ export default function PropertyForm({ property, onSuccess }: PropertyFormProps)
             step="any"
             {...register("coordinates.lng", { valueAsNumber: true })}
             className="input input-bordered w-full"
+            style={{
+              padding: "12px",
+            }}
           />
           {errors.coordinates?.lng && <span className="text-error">{errors.coordinates.lng.message}</span>}
         </div>
@@ -111,7 +125,14 @@ export default function PropertyForm({ property, onSuccess }: PropertyFormProps)
 
       <div className="form-control">
         <label className="label cursor-pointer justify-start gap-2">
-          <input type="checkbox" className="toggle toggle-primary" {...register("isMapped")} />
+          <input
+            type="checkbox"
+            className="toggle toggle-primary"
+            {...register("isMapped")}
+            style={{
+              padding: "2px",
+            }}
+          />
           <span className="label-text">Mark as Mapped</span>
         </label>
       </div>

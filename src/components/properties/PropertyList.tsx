@@ -40,7 +40,7 @@ export default function PropertyList({ properties }: { properties: PropertyRto[]
   const virtualizer = useVirtualizer({
     count: Math.ceil(visibleProperties.length / columnCount),
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 310,
+    estimateSize: () => 330,
     overscan: 5,
   });
 
@@ -60,10 +60,24 @@ export default function PropertyList({ properties }: { properties: PropertyRto[]
   }, [selectedId, visibleProperties, columnCount, virtualizer]);
 
   return (
-    <div className="w-[90vw] lg:w-[40vw] h-screen p-4 border-r border-base-200 flex flex-col gap-6 bg-base-300">
+    <div
+      className="w-[90vw] lg:w-[40vw] h-screen p-4 border-r border-base-200 flex flex-col gap-6 bg-base-300"
+      style={{
+        padding: "12px",
+        paddingBottom: "0px",
+        paddingLeft: "8px",
+        paddingRight: "8px",
+      }}
+    >
       <div className="flex flex-col gap-4">
         <div className="flex justify-between items-center mb-4 w-full">
-          <div className="tabs tabs-box tabs-lg w-full">
+          <div
+            className="tabs tabs-box tabs-lg w-full"
+            style={{
+              marginLeft: "8px",
+              marginRight: "8px",
+            }}
+          >
             <input
               type="radio"
               name="property-tabs"
@@ -91,7 +105,13 @@ export default function PropertyList({ properties }: { properties: PropertyRto[]
           </div>
         </div>
 
-        <div className="flex gap-4 mb-4 w-full justify-between">
+        <div
+          className="flex gap-4 mb-4 w-full justify-between"
+          style={{
+            paddingLeft: "8px",
+            paddingRight: "8px",
+          }}
+        >
           <SearchInput />
           <SortDropdown />
         </div>
@@ -109,7 +129,12 @@ export default function PropertyList({ properties }: { properties: PropertyRto[]
                   transform: `translateY(${virtualRow.start}px)`,
                 }}
               >
-                <div className="flex gap-4 px-2 pb-4 h-full">
+                <div
+                  className="flex gap-4 px-2 pb-4 h-full"
+                  style={{
+                    padding: "12px",
+                  }}
+                >
                   {Array.from({ length: columnCount }).map((_, index) => {
                     const itemIndex = virtualRow.index * columnCount + index;
                     const property = visibleProperties[itemIndex];

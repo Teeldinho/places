@@ -80,6 +80,11 @@ export default function MapView({ properties }: { properties: PropertyRto[] }) {
             latitude={selectedProperty.coordinates.lat}
             onClose={clearSelection}
             closeOnClick={false}
+            style={{
+              padding: "12px",
+              width: "300px",
+              maxWidth: "90vw",
+            }}
           >
             <PropertyCard property={selectedProperty} isSelected={true} onClose={clearSelection} />
           </Popup>

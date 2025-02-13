@@ -25,7 +25,13 @@ export default function SortDropdown() {
         </svg>
       </label>
 
-      <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 w-64 rounded-md">
+      <ul
+        tabIndex={0}
+        className="dropdown-content z-[1] menu p-2 shadow bg-base-100 w-64 rounded-md flex flex-col gap-2"
+        style={{
+          padding: "8px",
+        }}
+      >
         {/* Sort Fields */}
         {SORT_FIELDS.map(({ label, value }) => (
           <li key={value}>
@@ -35,7 +41,14 @@ export default function SortDropdown() {
           </li>
         ))}
 
-        <li className="divider mt-1 mb-1" />
+        <li
+          className="divider rounded-lg"
+          style={{
+            marginTop: "4px",
+            marginBottom: "4px",
+            height: "1px",
+          }}
+        />
 
         {/* Sort Directions */}
         {SORT_DIRECTIONS.map(({ label, value }) => (
@@ -46,7 +59,14 @@ export default function SortDropdown() {
           </li>
         ))}
 
-        <li className="divider mt-1 mb-1" />
+        <li
+          className="divider rounded-lg"
+          style={{
+            marginTop: "4px",
+            marginBottom: "4px",
+            height: "1px",
+          }}
+        />
 
         {/* Reset Action */}
         <li>

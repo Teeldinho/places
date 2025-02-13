@@ -23,11 +23,16 @@ export default function PropertyModal({ property, trigger }: PropertyModalProps)
       </div>
 
       {/* Sidebar content */}
-      <div className="drawer-side">
+      <div className="drawer-side z-50">
         <label htmlFor="property-drawer" aria-label="close sidebar" className="drawer-overlay" onClick={() => setIsOpen(false)}></label>
 
-        <div className="bg-base-100 min-h-full w-[40rem] p-6">
-          <div className="flex justify-between items-center mb-6">
+        <div
+          className="bg-base-100 min-h-full w-[90vw] lg:w-[40rem] p-6 flex flex-col gap-6"
+          style={{
+            padding: "32px",
+          }}
+        >
+          <div className="flex justify-between items-center">
             <h3 className="text-2xl font-bold">{isEditMode ? "Edit Property" : "Add New Property"}</h3>
             <button className="btn btn-circle btn-sm" onClick={() => setIsOpen(false)}>
               ✕

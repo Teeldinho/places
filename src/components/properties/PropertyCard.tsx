@@ -16,7 +16,7 @@ interface PropertyCardProps {
 
 export default function PropertyCard({ property, isSelected, onClick, onClose }: PropertyCardProps) {
   return (
-    <div className="relative">
+    <div className="relative hover:shadow-md transition-all">
       {onClose && (
         <button type="button" onClick={onClose} className="absolute top-1 right-1 btn btn-circle btn-sm btn-dash opacity-60 z-20" aria-label="Close">
           ✕
@@ -24,7 +24,7 @@ export default function PropertyCard({ property, isSelected, onClick, onClose }:
       )}
 
       <div
-        className={`card bg-base-100 shadow-sm hover:shadow-md transition-all flex flex-col gap-2 ${onClick ? "cursor-pointer" : ""} ${
+        className={`card bg-base-100 shadow-sm hover:shadow-md transition-all flex flex-col gap-0 ${onClick ? "cursor-pointer" : ""} ${
           isSelected ? "ring-4 ring-primary" : ""
         }`}
         onClick={onClick}
@@ -46,7 +46,14 @@ export default function PropertyCard({ property, isSelected, onClick, onClose }:
           />
         </figure>
 
-        <div className="card-body p-4 flex flex-col gap-1.5">
+        <div
+          className="card-body flex flex-col gap-1.5 transition-all"
+          style={{
+            padding: "12px",
+            paddingTop: "8px",
+            paddingBottom: "12px",
+          }}
+        >
           <PropertyName property={property} />
           <PropertyDetails property={property} />
         </div>
